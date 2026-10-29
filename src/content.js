@@ -21,10 +21,13 @@
       if (v) return v;
     }
     for (const sel of rule.title || []) {
-      let node;
-      try { node = el.querySelector(sel); } catch { continue; }
-      if (!node) continue;
-      const t = (node.textContent || "").trim() || node.getAttribute("title") || node.getAttribute("aria-label");
+      let nodes;
+      try { nodes = rule.titleAll ? [...el.querySelectorAll(sel)] : [el.querySelector(sel)]; } catch { continue; }
+      const t = nodes
+        .filter(Boolean)
+        .map((node) => (node.textContent || "").trim() || node.getAttribute("title") || node.getAttribute("aria-label"))
+        .filter(Boolean)
+        .join(" \n ");
       if (t) return t;
     }
     return null;

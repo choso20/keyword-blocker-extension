@@ -25,6 +25,7 @@ function render() {
   $("enabled").checked = settings.enabled;
   $("site-reddit").checked = settings.sites.reddit;
   $("site-youtube").checked = settings.sites.youtube;
+  $("site-x").checked = settings.sites.x;
   $("hideComments").checked = settings.hideComments;
   $("wholeWord").checked = settings.wholeWord;
   $("cardScope").checked = settings.matchScope === "card";
@@ -56,8 +57,8 @@ async function showCount() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab) return;
   chrome.tabs.sendMessage(tab.id, { type: "kwb-get-count" }, (res) => {
-    if (chrome.runtime.lastError || !res) return; // not a Reddit/YouTube tab
-    const name = res.site === "reddit" ? "Reddit" : "YouTube";
+    if (chrome.runtime.lastError || !res) return; // not a Reddit/YouTube/X tab
+    const name = { reddit: "Reddit", youtube: "YouTube", x: "X" }[res.site] || res.site;
     $("status").innerHTML = "";
     const strong = document.createElement("strong");
     strong.textContent = res.count;
@@ -90,6 +91,7 @@ $("wholeWord").addEventListener("change", (e) => save({ wholeWord: e.target.chec
 $("cardScope").addEventListener("change", (e) => save({ matchScope: e.target.checked ? "card" : "title" }));
 $("site-reddit").addEventListener("change", (e) => save({ sites: { ...settings.sites, reddit: e.target.checked } }));
 $("site-youtube").addEventListener("change", (e) => save({ sites: { ...settings.sites, youtube: e.target.checked } }));
+$("site-x").addEventListener("change", (e) => save({ sites: { ...settings.sites, x: e.target.checked } }));
 
 // Refresh the count shortly after changes so it reflects the new list
 chrome.storage.onChanged.addListener(() => setTimeout(showCount, 300));

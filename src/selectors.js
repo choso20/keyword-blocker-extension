@@ -1,11 +1,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Site selectors. Reddit and YouTube change their markup every so often; when
+// Site selectors. Reddit, YouTube and X change their markup every so often; when
 // something stops being hidden, this is the only file that should need editing.
 //
 // Each rule:
 //   kind       "post" (always on) or "comment" (only when "Also hide comments" is on)
 //   container  CSS selector for one post / video / comment card
 //   title      CSS selectors tried in order to find the title inside the card
+//   titleAll   optional: use the text of every match of a title selector, not just the first
 //   titleAttr  attribute on the container itself that holds the title (checked first)
 //   hide       optional: given the container, return the element to actually hide
 // If no title is found, the card's full text is used instead, so a broken title
@@ -88,6 +89,30 @@ const KWB_SITES = {
         kind: "comment",
         container: "ytd-comment-thread-renderer, ytm-comment-thread-renderer",
         title: ["#content-text", ".comment-text"]
+      }
+    ]
+  },
+
+  x: {
+    hosts: ["x.com", "mobile.x.com", "twitter.com", "mobile.twitter.com"],
+    rules: [
+      // Posts in timelines, search, profiles, lists and threads. Replies on X are
+      // posts too, so they're always checked, not just with "Also hide comments".
+      {
+        kind: "post",
+        container: 'article[data-testid="tweet"]',
+        title: ['[data-testid="tweetText"]'],
+        // Join every match so the text of a quoted post counts too
+        titleAll: true,
+        // Timelines are virtual lists of cells; hide the cell so no gap is left
+        hide: (el) => el.closest('[data-testid="cellInnerDiv"]') || el
+      },
+      // "What's happening" sidebar and Explore trends (no title, so the whole trend's text is used)
+      {
+        kind: "post",
+        container: '[data-testid="trend"]',
+        title: [],
+        hide: (el) => el.closest('[data-testid="cellInnerDiv"]') || el
       }
     ]
   }

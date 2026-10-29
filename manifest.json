@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Keyword Blocker",
-  "version": "1.0.0",
-  "description": "Hide Reddit posts and YouTube videos that mention keywords you choose.",
+  "version": "1.1.0",
+  "description": "Hide Reddit posts, YouTube videos and X posts that mention keywords you choose.",
   "permissions": ["storage"],
   "background": {
     "service_worker": "background.js"
@@ -29,7 +29,11 @@
         "*://old.reddit.com/*",
         "*://sh.reddit.com/*",
         "*://www.youtube.com/*",
-        "*://m.youtube.com/*"
+        "*://m.youtube.com/*",
+        "*://x.com/*",
+        "*://mobile.x.com/*",
+        "*://twitter.com/*",
+        "*://mobile.twitter.com/*"
       ],
       "js": ["src/settings.js", "src/selectors.js", "src/matcher.js", "src/content.js"],
       "css": ["src/content.css"],

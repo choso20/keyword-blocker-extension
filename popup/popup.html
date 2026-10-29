@@ -17,7 +17,7 @@
     </label>
   </header>
 
-  <div id="status" class="status">Open Reddit or YouTube to see what's hidden.</div>
+  <div id="status" class="status">Open Reddit, YouTube or X to see what's hidden.</div>
 
   <form id="add-form" autocomplete="off">
     <input id="kw-input" type="text" placeholder="Add keywords (comma-separated)" spellcheck="false">
@@ -38,9 +38,10 @@
     <h2>Options</h2>
     <label class="row"><input type="checkbox" id="site-reddit"> Reddit</label>
     <label class="row"><input type="checkbox" id="site-youtube"> YouTube</label>
+    <label class="row"><input type="checkbox" id="site-x"> X (Twitter)</label>
     <label class="row"><input type="checkbox" id="hideComments"> Also hide comments</label>
     <label class="row"><input type="checkbox" id="wholeWord"> Whole words only <span class="sub">("cat" won't hide "category")</span></label>
-    <label class="row"><input type="checkbox" id="cardScope"> Match whole card <span class="sub">(channel, subreddit, preview text, not just title)</span></label>
+    <label class="row"><input type="checkbox" id="cardScope"> Match whole card <span class="sub">(channel, subreddit, author, preview text, not just title)</span></label>
   </section>
 
   <script src="../src/settings.js"></script>

@@ -6,7 +6,7 @@ const KWB_DEFAULTS = {
   wholeWord: true,      // "cat" won't match "category"
   matchScope: "title",  // "title" = titles only, "card" = all text on the post/video card
   hideComments: false,
-  sites: { reddit: true, youtube: true }
+  sites: { reddit: true, youtube: true, x: true }
 };
 
 // eslint-disable-next-line no-unused-vars
