@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Keyword Blocker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="../icons/icon32.png" alt="" width="20" height="20">
+      <h1>Keyword Blocker</h1>
+    </div>
+    <label class="switch" title="Turn blocking on/off">
+      <input type="checkbox" id="enabled">
+      <span class="slider"></span>
+    </label>
+  </header>
+
+  <div id="status" class="status">Open Reddit or YouTube to see what's hidden.</div>
+
+  <form id="add-form" autocomplete="off">
+    <input id="kw-input" type="text" placeholder="Add keywords (comma-separated)" spellcheck="false">
+    <button type="submit">Add</button>
+  </form>
+  <p class="hint">Phrases work too. Use <code>/regex/</code> for patterns.</p>
+
+  <ul id="kw-list" class="chips"></ul>
+  <p id="empty" class="empty">No keywords yet.</p>
+
+  <details id="text-edit">
+    <summary>Edit as text</summary>
+    <textarea id="kw-text" rows="6" spellcheck="false" placeholder="One keyword per line"></textarea>
+    <button id="save-text" type="button">Save list</button>
+  </details>
+
+  <section class="options">
+    <h2>Options</h2>
+    <label class="row"><input type="checkbox" id="site-reddit"> Reddit</label>
+    <label class="row"><input type="checkbox" id="site-youtube"> YouTube</label>
+    <label class="row"><input type="checkbox" id="hideComments"> Also hide comments</label>
+    <label class="row"><input type="checkbox" id="wholeWord"> Whole words only <span class="sub">("cat" won't hide "category")</span></label>
+    <label class="row"><input type="checkbox" id="cardScope"> Match whole card <span class="sub">(channel, subreddit, preview text, not just title)</span></label>
+  </section>
+
+  <script src="../src/settings.js"></script>
+  <script src="../src/matcher.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
